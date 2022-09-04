@@ -34,43 +34,22 @@ class DeliveryTest {
         var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
         var daysToAddForSecondMeeting = 7;
         var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
-//        // TODO: добавить логику теста в рамках которого будет выполнено планирование и перепланирование встречи.
-//        // Для заполнения полей формы можно использовать пользователя validUser и строки с датами в переменных
-//        // firstMeetingDate и secondMeetingDate. Можно также вызывать методы generateCity(locale),
-//        // generateName(locale), generatePhone(locale) для генерации и получения в тесте соответственно города,
-//        // имени и номера телефона без создания пользователя в методе generateUser(String locale) в датагенераторе
         $("[data-test-id='city'] input").setValue(validUser.getCity());
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE, firstMeetingDate);
         $("[data-test-id='name'] input").setValue(validUser.getName());
         $("[data-test-id='phone'] input").setValue(validUser.getPhone());
         $("[data-test-id='agreement'] span").click();
         $x("//*[contains(text(), 'Запланировать')]").click();
-        $(".notification__content").shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate));
-        TimeUnit.SECONDS.sleep(1);
+        $(".notification__content").shouldBe(visible, Duration.ofSeconds(20)).shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate));
+        //TimeUnit.SECONDS.sleep(1);
         $("[data-test-id='date'] input").doubleClick().sendKeys(firstMeetingDate);
         $(By.className("button")).click();
         $x("//span[contains(text(), 'Перепланировать')]").click();
-        TimeUnit.SECONDS.sleep(1);
+        //TimeUnit.SECONDS.sleep(1);
         $("[data-test-id='date'] input").doubleClick().sendKeys(secondMeetingDate);
         $(By.className("button")).click();
         $x("//span[contains(text(), 'Перепланировать')]").click();
-        TimeUnit.SECONDS.sleep(1);
-        $(".notification__content").shouldBe(visible).shouldHave(text("Встреча успешно запланирована на " + secondMeetingDate));
+        //TimeUnit.SECONDS.sleep(1);
+        $(".notification__content").shouldBe(visible, Duration.ofSeconds(20)).shouldHave(text("Встреча успешно запланирована на " + secondMeetingDate));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
